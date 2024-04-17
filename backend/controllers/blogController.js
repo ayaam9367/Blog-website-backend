@@ -1,4 +1,3 @@
-const express = require('express');
 const {Blog} = require('../models/blog.js');
 //blog_index, blog_details, blog_create_get, blog_create_post, blog_delete
 
@@ -11,7 +10,7 @@ const blog_index = (req, res) => {
         console.log(error);
     })
 }
-
+ 
 const blog_details = (req, res) => {
     const id= req.params.id;
     Blog.findById(id)

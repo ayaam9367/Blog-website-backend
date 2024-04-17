@@ -2,7 +2,8 @@ const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const {Blog} = require('./models/blog.js');
-const blogRoutes = require('./routes/blogRoutes.js')
+const blogRoutes = require('./routes/blogRoutes.js');
+const path = require('path');
 
 
 const app = express();
@@ -12,10 +13,13 @@ const dbURI = 'mongodb+srv://ayaam:ayaam1234@cluster0.bxeotu3.mongodb.net/nodejs
 mongoose.connect(dbURI)
 .then((result) => console.log('connected to DB'))
 .then((result) => app.listen(3003))
+.then((resullt) => console.log("app is running on port 3003"))
 .catch((err) => console.log(err));
 
 //register view engine
 app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views')); //create an absolute path relative to the current script file.
+
 
 
 //listen for requests -> can give it a object too for using websockets 
@@ -32,7 +36,7 @@ app.set('view engine', 'ejs');
 // });
 
 // static files
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(express.urlencoded({extended: true})); //takes all the urll data and parses it into workable format to pass it into req.body
 
